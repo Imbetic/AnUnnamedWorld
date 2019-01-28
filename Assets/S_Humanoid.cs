@@ -26,14 +26,16 @@ public class S_Humanoid : S_BasePawn
     // Use this for initialization
     void Start ()
     {
-	
+
 	}
 
     // Update is called once per frame
     void Update()
     {
         controller.SetCommands(0);
-        Head.transform.eulerAngles += new Vector3(0, 0, -controller.m_mousex);
+        if (controller.m_mousex > 2) controller.m_mousex = 2;
+        else if (controller.m_mousex < -2) controller.m_mousex = -2;
+        Head.transform.eulerAngles += new Vector3(0, 0, -controller.m_mousex * (0.8f+(m_agility/5)) * 70 * Time.deltaTime); 
         BodyRotation();
     }
 
@@ -101,11 +103,11 @@ public class S_Humanoid : S_BasePawn
             float rightdist = 360 - leftdist;
             if(rightdist < leftdist)
             {
-                Body.transform.eulerAngles += new Vector3(0, 0, m_agility*10*Time.deltaTime);
+                Body.transform.eulerAngles += new Vector3(0, 0, Time.deltaTime* Mathf.Pow(rightdist, (1.5f + (m_agility / 20)) )/ 2);
             }
             else
             {
-                Body.transform.eulerAngles -= new Vector3(0, 0, m_agility * 10 * Time.deltaTime);
+                Body.transform.eulerAngles -= new Vector3(0, 0, Time.deltaTime * Mathf.Pow(leftdist, (1.5f + (m_agility / 20)) )/ 2);
             }
         }
         else if(angle1 < angle2)
@@ -114,11 +116,11 @@ public class S_Humanoid : S_BasePawn
             float leftdist = 360 - rightdist;
             if (rightdist < leftdist)
             {
-                Body.transform.eulerAngles += new Vector3(0, 0, m_agility * 10 * Time.deltaTime);
+                Body.transform.eulerAngles += new Vector3(0, 0, Time.deltaTime * Mathf.Pow(rightdist, (1.5f + (m_agility / 20))) / 2);
             }
             else
             {
-                Body.transform.eulerAngles -= new Vector3(0, 0, m_agility * 10 * Time.deltaTime);
+                Body.transform.eulerAngles -= new Vector3(0, 0, Time.deltaTime * Mathf.Pow(leftdist, (1.5f + (m_agility/20)))/ 2);
             }
         }
 

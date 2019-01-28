@@ -27,7 +27,6 @@ public class SimpleMatchMaker : MonoBehaviour
             NetworkServer.Listen(hostInfo, 9000);
 
             NetworkManager.singleton.StartHost(hostInfo);
-            Debug.LogError("Create match SUCCESS");
         }
         else
         {

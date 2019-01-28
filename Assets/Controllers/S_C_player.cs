@@ -13,19 +13,33 @@ public class S_C_player : S_Controller
     public KeyCode ability1 = KeyCode.Alpha1;
     public KeyCode ability2 = KeyCode.Alpha2;
     public KeyCode ability3 = KeyCode.Alpha3;
- 
-    public Camera cam;
 
-    private void Awake()
+    public Camera visioncam;
+    public Camera cam;
+    public GameObject vision;
+
+    private void Start()
     {
+        
         if (isLocalPlayer)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            GameObject[] obstructions = GameObject.FindGameObjectsWithTag("Obstruction");
+
+            for (int i = 0; i < obstructions.Length; i++)
+            {
+                obstructions[i].GetComponent<S_Obstructor>().iInitialize(transform); ;
+            }
+
+            vision.SetActive(true);
             cam.enabled = true;
+            visioncam.enabled = true;
         };
     }
 
     public override void SetCommands(int player)
     {
+        //HÄR
         if (!isLocalPlayer)
         {
             return;
@@ -36,7 +50,7 @@ public class S_C_player : S_Controller
         m_right = Input.GetKey(right);
         m_left = Input.GetKey(left);*/
 
-  
+
         if (Input.GetKey(up))
         {
             if (Input.GetKey(down))
