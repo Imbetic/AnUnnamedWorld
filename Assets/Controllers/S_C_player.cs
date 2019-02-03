@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class S_C_player : S_Controller
 {
@@ -18,32 +19,39 @@ public class S_C_player : S_Controller
     public Camera cam;
     public GameObject vision;
 
+    public GameObject PlayerBody;
+    GameObject MyPlayer;
+
     private void Start()
     {
-        
         if (isLocalPlayer)
         {
+            vision.SetActive(true);        
             Cursor.lockState = CursorLockMode.Locked;
             GameObject[] obstructions = GameObject.FindGameObjectsWithTag("Obstruction");
 
             for (int i = 0; i < obstructions.Length; i++)
             {
-                obstructions[i].GetComponent<S_Obstructor>().iInitialize(transform); ;
+                obstructions[i].GetComponent<S_Obstructor>().iInitialize(vision.transform);
             }
-
-            vision.SetActive(true);
-            cam.enabled = true;
-            visioncam.enabled = true;
-        };
+        };   
     }
 
-    public override void SetCommands(int player)
+    //void CmdSpawnBody()
+    //{
+    //    MyPlayer = GameObject.Instantiate(PlayerBody);
+    //    MyPlayer.GetComponent<S_Humanoid>().controller = this;
+    //    NetworkServer.Spawn(MyPlayer);
+    //    vision.transform.parent = MyPlayer.GetComponent<S_Humanoid>().Head;
+    //    vision.transform.position = MyPlayer.transform.position;
+    //    vision.transform.Translate(0, 0, -40);
+    //}
+
+    
+    public override void CmdSetCommands(int player)
     {
         //HÄR
-        if (!isLocalPlayer)
-        {
-            return;
-        };
+
 
         /*m_forward = Input.GetKey(up);
         m_backward = Input.GetKey(down);

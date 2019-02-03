@@ -212,13 +212,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1522962967
+--- !u!1001 &1327151170
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1049316837235994, guid: 52ba6def2e6a0e6499ea1171f446acd4, type: 3}
+      propertyPath: m_Name
+      value: Network Manager
+      objectReference: {fileID: 0}
     - target: {fileID: 4778015045477180, guid: 52ba6def2e6a0e6499ea1171f446acd4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -251,25 +255,27 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114655361997322872, guid: 52ba6def2e6a0e6499ea1171f446acd4,
-        type: 3}
-      propertyPath: m_OnlineScene
-      value: Gameplay_Prototyping
+    - target: {fileID: 4778015045477180, guid: 52ba6def2e6a0e6499ea1171f446acd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778015045477180, guid: 52ba6def2e6a0e6499ea1171f446acd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778015045477180, guid: 52ba6def2e6a0e6499ea1171f446acd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114655361997322872, guid: 52ba6def2e6a0e6499ea1171f446acd4,
         type: 3}
-      propertyPath: m_PlayerPrefab
-      value: 
-      objectReference: {fileID: 14, guid: d73a9bf5c4dcb174e9601158c0addc3d, type: 3}
-    - target: {fileID: 114655361997322872, guid: 52ba6def2e6a0e6499ea1171f446acd4,
-        type: 3}
-      propertyPath: matchName
-      value: Viktortestar
+      propertyPath: m_AutoCreatePlayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114655361997322872, guid: 52ba6def2e6a0e6499ea1171f446acd4,
         type: 3}
-      propertyPath: m_OfflineScene
-      value: Menu_Prototyping
+      propertyPath: m_CustomConfig
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52ba6def2e6a0e6499ea1171f446acd4, type: 3}

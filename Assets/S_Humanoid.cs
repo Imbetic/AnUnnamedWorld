@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class S_Humanoid : S_BasePawn
 {
@@ -11,6 +12,12 @@ public class S_Humanoid : S_BasePawn
     //Skills - attack speed, recovery, damage, armor penetration, charge
 
     public float m_skill;
+
+    float m_preparing = 0;
+    float m_attackduration = 0;
+    float m_attackdelay = 0;
+
+    public S_Appearance Appearance;
 
     /*public float m_staffskill;
     public float m_swordskill;
@@ -32,24 +39,35 @@ public class S_Humanoid : S_BasePawn
     // Update is called once per frame
     void Update()
     {
-        controller.SetCommands(0);
-        if (controller.m_mousex > 2) controller.m_mousex = 2;
-        else if (controller.m_mousex < -2) controller.m_mousex = -2;
-        Head.transform.eulerAngles += new Vector3(0, 0, -controller.m_mousex * (0.8f+(m_agility/5)) * 70 * Time.deltaTime); 
-        BodyRotation();
+        if (isLocalPlayer)
+        {
+            controller.CmdSetCommands(0); 
+        }
+        if (isLocalPlayer)
+        {
+            HeadRotation();
+            BodyRotation();
+            Combat();
+        }
+        
     }
+
 
     private void FixedUpdate()
     {
-        Movement();
-        //m_physics.velocity.Set(m_physics.velocity.x-(2*Mathf.Pow(m_physics.velocity.x, 2)), m_physics.velocity.y-(2*Mathf.Pow(m_physics.velocity.y, 2)));
-        m_physics.AddForce(new Vector2(-5*m_physics.velocity.x, -5*m_physics.velocity.y));
+        if (isLocalPlayer)
+        {
+            Movement();
+            m_physics.AddForce(new Vector2(-5 * m_physics.velocity.x, -5 * m_physics.velocity.y));
+        }
     }
+
 
     void Movement()
     {
         if (controller.m_forward)
         {
+
             if (controller.m_left)
             {
                 m_physics.AddForce(Head.transform.up * m_mobility * (1 / Mathf.Sqrt(2)));
@@ -90,7 +108,18 @@ public class S_Humanoid : S_BasePawn
         {
             m_physics.AddForce(Head.transform.right * m_mobility);
         }
+
+        
     }
+
+
+    void HeadRotation()
+    {
+        if (controller.m_mousex > 2) controller.m_mousex = 2;
+        else if (controller.m_mousex < -2) controller.m_mousex = -2;
+        Head.transform.eulerAngles += new Vector3(0, 0, -controller.m_mousex * (0.8f + (m_agility / 5)) * 70 * Time.deltaTime);
+    }
+
 
     void BodyRotation()
     {
@@ -126,5 +155,85 @@ public class S_Humanoid : S_BasePawn
 
 
 
+    }
+
+
+    void Combat()
+    {
+        if (m_attackduration > 0)
+        {
+            m_attackduration -= Time.deltaTime;
+            if(m_attackduration<=0)
+            {
+                //Back to Sheethed
+                //disable attack hitbox;
+                CmdInCombat();
+                
+                
+                
+            }
+        }
+        else if(m_attackdelay > 0)
+        {
+            m_attackdelay -= Time.deltaTime;
+            if(m_attackdelay < 0)
+            {
+                m_attackduration = 0.3f;
+                CmdAttack();
+                
+            }
+        }
+        else
+        {
+            if (controller.m_attack)
+            {
+                if(m_preparing == 0)
+                {
+                    CmdCharge();
+                    
+                }
+                m_preparing += Time.deltaTime;
+            }
+            else
+            {
+                if (m_preparing>0)
+                {
+                    m_preparing = 0;
+                    m_attackdelay = 0.15f;
+                   
+                }
+            }
+        }
+    }
+
+    [Command]
+    void CmdAttack()
+    {
+        RpcAttack();
+    }
+    [Command]
+    void CmdCharge()
+    {
+        RpcCharge();
+    }
+    [Command]
+    void CmdInCombat()
+    {
+        RpcInCombat();
+    }
+    [ClientRpc]
+    void RpcAttack()
+    {
+        Appearance.Attacking();
+    }
+    [ClientRpc]
+    void RpcCharge()
+    {
+        Appearance.Preparing();
+    }
+    [ClientRpc]
+    void RpcInCombat()
+    {
+        Appearance.Sheathed();
     }
 }

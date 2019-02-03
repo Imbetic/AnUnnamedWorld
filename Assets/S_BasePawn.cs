@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class S_BasePawn : MonoBehaviour {
+public class S_BasePawn : NetworkBehaviour {
 
     public S_Controller controller;
 
