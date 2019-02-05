@@ -285,6 +285,7 @@ MonoBehaviour:
   m_physics: {fileID: 35}
   m_skill: 0
   Appearance: {fileID: 7381988976409904549}
+  m_gun: {fileID: 1574932361259812265}
 --- !u!114 &7959643473062048462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.1
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.05263158
   m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -425,8 +426,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Target: {fileID: 26}
   m_ChildIndex: 0
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
+  m_SendInterval: 0.05263158
+  m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.5
@@ -445,8 +446,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Target: {fileID: 24}
   m_ChildIndex: 1
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
+  m_SendInterval: 0.05263158
+  m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.5
@@ -563,7 +564,7 @@ GameObject:
   - component: {fileID: 49}
   - component: {fileID: 1581684868}
   m_Layer: 11
-  m_Name: Weapon
+  m_Name: MeleeWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,6 +656,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 21}
+  - {fileID: 5937700260551576026}
   m_Father: {fileID: 28}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -894,6 +896,57 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19}
   m_Enabled: 1
+--- !u!1 &21571378560512909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5937700260551576026}
+  - component: {fileID: 1574932361259812265}
+  m_Layer: 11
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5937700260551576026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21571378560512909}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.68, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 24}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1574932361259812265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21571378560512909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58984a5c9ebe59e4fb90bfbeebea28ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_reach: 0.5
+  m_firerate: 0.5
+  m_damage: 1
+  m_accuracy: 1
+  m_recoil: 1
+  m_speed: 10
+  m_bullet: {fileID: 3262315021376160402, guid: e06aa98cc9ec79346bf44ec44217f4de,
+    type: 3}
 --- !u!1 &235120429241651170
 GameObject:
   m_ObjectHideFlags: 0

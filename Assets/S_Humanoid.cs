@@ -19,6 +19,8 @@ public class S_Humanoid : S_BasePawn
 
     public S_Appearance Appearance;
 
+    public S_Gun m_gun;
+    float m_firetimer;
     /*public float m_staffskill;
     public float m_swordskill;
     public float m_hammerskill;
@@ -41,10 +43,7 @@ public class S_Humanoid : S_BasePawn
     {
         if (isLocalPlayer)
         {
-            controller.CmdSetCommands(0); 
-        }
-        if (isLocalPlayer)
-        {
+            controller.SetCommands(0);
             HeadRotation();
             BodyRotation();
             Combat();
@@ -58,8 +57,8 @@ public class S_Humanoid : S_BasePawn
         if (isLocalPlayer)
         {
             Movement();
-            m_physics.AddForce(new Vector2(-5 * m_physics.velocity.x, -5 * m_physics.velocity.y));
         }
+        m_physics.AddForce(new Vector2(-5 * m_physics.velocity.x, -5 * m_physics.velocity.y));
     }
 
 
@@ -160,6 +159,7 @@ public class S_Humanoid : S_BasePawn
 
     void Combat()
     {
+        Fire();
         if (m_attackduration > 0)
         {
             m_attackduration -= Time.deltaTime;
@@ -236,4 +236,36 @@ public class S_Humanoid : S_BasePawn
     {
         Appearance.Sheathed();
     }
+
+    void Fire()
+    {
+        if (m_firetimer <= 0)
+        {
+            if (controller.m_abilities[0])
+            {
+                //GameObject t_bullet = m_gun.Fire();
+                CmdFire(/*t_bullet*/);
+                m_firetimer = m_gun.m_firerate;
+            }
+        }
+        else
+        {
+            m_firetimer -= Time.deltaTime;
+        }
+    }
+
+    [Command]
+    void CmdFire(/*GameObject p_bullet*/)
+    {
+        
+        NetworkServer.Spawn(m_gun.Fire());
+        
+    }
+
+    //[ClientRpc]
+    //void RpcFire()
+    //{
+    //    NetworkServer.Spawn(m_gun.Fire());
+    //    m_firetimer = m_gun.m_firerate;
+    //}
 }

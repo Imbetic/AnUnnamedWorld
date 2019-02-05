@@ -24,8 +24,8 @@ public class S_Controller : NetworkBehaviour
         m_abilities = new bool[3];
     }
 
-    
-    public virtual void CmdSetCommands(int player)
+   
+    public virtual void SetCommands(int player)
     {
         
     }

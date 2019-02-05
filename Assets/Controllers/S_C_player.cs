@@ -47,18 +47,8 @@ public class S_C_player : S_Controller
     //    vision.transform.Translate(0, 0, -40);
     //}
 
-    
-    public override void CmdSetCommands(int player)
+    public override void SetCommands(int playernumber)
     {
-        //HÄR
-
-
-        /*m_forward = Input.GetKey(up);
-        m_backward = Input.GetKey(down);
-        m_right = Input.GetKey(right);
-        m_left = Input.GetKey(left);*/
-
-
         if (Input.GetKey(up))
         {
             if (Input.GetKey(down))
@@ -114,10 +104,80 @@ public class S_C_player : S_Controller
         m_attack = Input.GetMouseButton(0);
         m_defend = Input.GetMouseButton(1);
 
-        //m_abilities[0] = Input.GetKey(ability1);
-        //m_abilities[1] = Input.GetKey(ability2);
-        //m_abilities[2] = Input.GetKey(ability3);
-
+        m_abilities[0] = Input.GetKey(ability1);
+        m_abilities[1] = Input.GetKey(ability2);
+        m_abilities[2] = Input.GetKey(ability3);
     }
 
+    //[Command]
+    //void CmdSetCommands(int player)
+    //{
+    //    RpcSetCommands();
+    //}
+
+    
+
+    //[ClientRpc]
+    //void RpcSetCommands()
+    //{
+    //    if (Input.GetKey(up))
+    //    {
+    //        if (Input.GetKey(down))
+    //        {
+    //            m_forward = false;
+    //            m_backward = false;
+    //        }
+    //        else
+    //        {
+    //            m_forward = true;
+    //            m_backward = false;
+    //        }
+    //    }
+    //    else if (Input.GetKey(down))
+    //    {
+    //        m_forward = false;
+    //        m_backward = true;
+    //    }
+    //    else
+    //    {
+    //        m_forward = false;
+    //        m_backward = false;
+    //    }
+
+    //    if (Input.GetKey(right))
+    //    {
+    //        if (Input.GetKey(left))
+    //        {
+    //            m_left = false;
+    //            m_right = false;
+    //        }
+    //        else
+    //        {
+    //            m_left = false;
+    //            m_right = true;
+    //        }
+    //    }
+    //    else if (Input.GetKey(left))
+    //    {
+    //        m_left = true;
+    //        m_right = false;
+    //    }
+    //    else
+    //    {
+    //        m_left = false;
+    //        m_right = false;
+    //    }
+
+    //    m_mousex = Input.GetAxis("Mouse X");
+    //    m_mousey = Input.GetAxis("Mouse Y");
+
+    //    m_dash = Input.GetKey(dash);
+    //    m_attack = Input.GetMouseButton(0);
+    //    m_defend = Input.GetMouseButton(1);
+
+    //    m_abilities[0] = Input.GetKey(ability1);
+    //    m_abilities[1] = Input.GetKey(ability2);
+    //    m_abilities[2] = Input.GetKey(ability3);
+    //}
+    
 }
