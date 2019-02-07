@@ -21,6 +21,8 @@ public class S_Humanoid : S_BasePawn
 
     public S_Gun m_gun;
     float m_firetimer;
+    bool m_toggleGun = false;
+    bool m_previous1;
     /*public float m_staffskill;
     public float m_swordskill;
     public float m_hammerskill;
@@ -159,51 +161,72 @@ public class S_Humanoid : S_BasePawn
 
     void Combat()
     {
-        Fire();
-        if (m_attackduration > 0)
-        {
-            m_attackduration -= Time.deltaTime;
-            if(m_attackduration<=0)
+  
+            if (m_attackduration > 0)
             {
-                //Back to Sheethed
-                //disable attack hitbox;
-                CmdInCombat();
-                
-                
-                
-            }
-        }
-        else if(m_attackdelay > 0)
-        {
-            m_attackdelay -= Time.deltaTime;
-            if(m_attackdelay < 0)
-            {
-                m_attackduration = 0.3f;
-                CmdAttack();
-                
-            }
-        }
-        else
-        {
-            if (controller.m_attack)
-            {
-                if(m_preparing == 0)
+                m_attackduration -= Time.deltaTime;
+                if (m_attackduration <= 0)
                 {
-                    CmdCharge();
-                    
+                    //Back to Sheethed
+                    //disable attack hitbox;
+                    CmdInCombat();
+
+
+
                 }
-                m_preparing += Time.deltaTime;
+            }
+            else if (m_attackdelay > 0)
+            {
+                m_attackdelay -= Time.deltaTime;
+                if (m_attackdelay < 0)
+                {
+                    m_attackduration = 0.3f;
+                    CmdAttack();
+
+                }
             }
             else
             {
-                if (m_preparing>0)
+                if (m_toggleGun)
                 {
+                    if (!m_previous1 && controller.m_abilities[0])
+                    {
+                        m_toggleGun = false;
+                    CmdInCombat();
+                    }
+                    else
+                    Fire();
+
+                }
+                else if (!m_previous1 && controller.m_abilities[0])
+                {
+                    CmdAim();
+                    m_toggleGun = true;
                     m_preparing = 0;
-                    m_attackdelay = 0.15f;
-                   
+                }
+                else
+                {
+                    if (controller.m_attack)
+                    {
+                        if (m_preparing == 0)
+                        {
+                            CmdCharge();
+                        }
+                        m_preparing += Time.deltaTime;
+                    }
+                    else
+                    {
+                        if (m_preparing > 0)
+                        {
+                            m_preparing = 0;
+                            m_attackdelay = 0.15f;
+
+                        }
+                    }
                 }
             }
-        }
+        
+        m_previous1 = controller.m_abilities[0];
     }
 
     [Command]
@@ -237,11 +260,22 @@ public class S_Humanoid : S_BasePawn
         Appearance.Sheathed();
     }
 
+    [Command]
+    void CmdAim()
+    {
+        RpcAim();
+    }
+    [ClientRpc]
+    void RpcAim()
+    {
+        Appearance.Aiming();
+    }
+
     void Fire()
     {
         if (m_firetimer <= 0)
         {
-            if (controller.m_abilities[0])
+            if (controller.m_attack)
             {
                 //GameObject t_bullet = m_gun.Fire();
                 CmdFire(/*t_bullet*/);

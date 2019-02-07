@@ -9,6 +9,7 @@ public class S_Appearance : MonoBehaviour
     public Sprite InCombat;
     public Sprite ChargeRight1;
     public Sprite AttackRight1;
+    public Sprite AimingGun;
     public SpriteRenderer m_SpriteRenderer;
     
     
@@ -41,5 +42,10 @@ public class S_Appearance : MonoBehaviour
     {
         m_SpriteRenderer.sprite = InCombat;
 
+    }
+
+    public void Aiming()
+    {
+        m_SpriteRenderer.sprite = AimingGun;
     }
 }

@@ -724,6 +724,7 @@ MonoBehaviour:
   InCombat: {fileID: 21300000, guid: 3a3188944157dfe47b450f3099b6143d, type: 3}
   ChargeRight1: {fileID: 21300000, guid: ee7a71b7b9e4d2347924879fbe4a037a, type: 3}
   AttackRight1: {fileID: 21300000, guid: 55c55702028a4144696a5d5f10a58ebd, type: 3}
+  AimingGun: {fileID: 21300000, guid: 1956c609519521c428db089663607aee, type: 3}
   m_SpriteRenderer: {fileID: 0}
 --- !u!1 &18
 GameObject:
